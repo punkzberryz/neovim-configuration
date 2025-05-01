@@ -148,11 +148,11 @@ return {
           },
         })
       end,
-      ["hdl_checker"] = function()
-        lspconfig["hdl_checker"].setup({
-          capabilities = capabilities,
-        })
-      end
+      -- ["hdl_checker"] = function()
+      --   lspconfig["hdl_checker"].setup({
+      --     capabilities = capabilities,
+      --   })
+      -- end
       -- ["gopls"] = function()
       --   -- configure go-lang lua server
       --   lspconfig["gopls"].setup({

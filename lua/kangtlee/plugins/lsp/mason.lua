@@ -55,7 +55,7 @@ return {
         "goimports",
         -- "gofmt",
         "golines",
-        "hdl_checker",
+        -- "hdl_checker",
       },
     })
   end,
