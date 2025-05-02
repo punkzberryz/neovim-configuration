@@ -78,8 +78,63 @@ return {
       vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
     end
 
-    lspconfig.gopls.setup({
+    -- Typescript config
+    lspconfig.ts_ls.setup({
+      capabilities = capabilities,
+      filetypes = {
+        "typescript",
+        "typescriptreact",
+        "typescript.tsx",
+        "javascript",
+        "javascriptreact",
+        "javascript.jsx",
+      },
+      root_dir = util.root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
+      settings = {
+        typescript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+          suggest = {
+            includeCompletionsForModuleExports = true,
+          },
+        },
+        javascript = {
+          inlayHints = {
+            includeInlayParameterNameHints = "all",
+            includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            includeInlayFunctionParameterTypeHints = true,
+            includeInlayVariableTypeHints = true,
+            includeInlayPropertyDeclarationTypeHints = true,
+            includeInlayFunctionLikeReturnTypeHints = true,
+            includeInlayEnumMemberValueHints = true,
+          },
+          suggest = {
+            includeCompletionsForModuleExports = true,
+          },
+        },
+      },
+      commands = {
+        OrganizeImports = {
+          function()
+            vim.lsp.buf.execute_command({
+              command = "_typescript.organizeImports",
+              arguments = { vim.api.nvim_buf_get_name(0) },
+              title = "",
+            })
+          end,
+          description = "Organize Imports",
+        },
+      },
+    })
 
+    lspconfig.gopls.setup({
       capabilities = capabilities,
       cmd = { "gopls" },
       filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -98,10 +153,18 @@ return {
     mason_lspconfig.setup_handlers({
       -- default handler for installed servers
       function(server_name)
-        lspconfig[server_name].setup({
-          capabilities = capabilities,
-        })
+        -- Skip tsserver as we've configured it manually above
+        if server_name ~= "ts_ls" and server_name ~= "gopls" then
+          lspconfig[server_name].setup({
+            capabilities = capabilities,
+          })
+        end
       end,
+      -- function(server_name)
+      --   lspconfig[server_name].setup({
+      --     capabilities = capabilities,
+      --   })
+      -- end,
       ["svelte"] = function()
         -- configure svelte server
         lspconfig["svelte"].setup({

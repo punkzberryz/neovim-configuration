@@ -7,10 +7,8 @@ return {
   config = function()
     -- import mason
     local mason = require("mason")
-
     -- import mason-lspconfig
     local mason_lspconfig = require("mason-lspconfig")
-
     local mason_tool_installer = require("mason-tool-installer")
 
     -- enable mason and configure icons
@@ -22,8 +20,13 @@ return {
           package_uninstalled = "✗",
         },
       },
+    })
+
+    -- Configure mason-lspconfig
+    mason_lspconfig.setup({
+      -- list of servers for mason to install
       ensure_installed = {
-        "tsserver",
+        "ts_ls", -- This is the correct lspconfig name
         "html",
         "cssls",
         "tailwindcss",
@@ -35,27 +38,23 @@ return {
         "pyright",
         "gopls",
       },
+      -- auto-install configured servers (with lspconfig)
+      automatic_installation = true,
     })
 
-    -- mason_lspconfig.setup({
-    --   -- list of servers for mason to install
-    --   ensure_installed = {
-    --   },
-    -- })
-
+    -- Configure mason-tool-installer
     mason_tool_installer.setup({
       ensure_installed = {
         "prettier", -- prettier formatter
         "stylua", -- lua formatter
         "isort", -- python formatter
         "black", -- python formatter
-        "pylint",
-        "eslint_d",
-        "gopls",
-        "goimports",
-        -- "gofmt",
-        "golines",
-        -- "hdl_checker",
+        "pylint", -- python linter
+        "eslint_d", -- js/ts linter
+        "gopls", -- go language server
+        "goimports", -- go imports formatter
+        "golines", -- go formatter
+        "typescript-language-server", -- ensure typescript server is installed
       },
     })
   end,
