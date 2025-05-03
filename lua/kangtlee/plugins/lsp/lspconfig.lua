@@ -180,13 +180,13 @@ return {
           end,
         })
       end,
-      ["graphql"] = function()
-        -- configure graphql language server
-        lspconfig["graphql"].setup({
-          capabilities = capabilities,
-          filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
-        })
-      end,
+      -- ["graphql"] = function()
+      --   -- configure graphql language server
+      --   lspconfig["graphql"].setup({
+      --     capabilities = capabilities,
+      --     filetypes = { "graphql", "gql", "svelte", "typescriptreact", "javascriptreact" },
+      --   })
+      -- end,
       ["emmet_ls"] = function()
         -- configure emmet language server
         lspconfig["emmet_ls"].setup({
@@ -216,24 +216,6 @@ return {
       --     capabilities = capabilities,
       --   })
       -- end
-      -- ["gopls"] = function()
-      --   -- configure go-lang lua server
-      --   lspconfig["gopls"].setup({
-      --     capabilities = capabilities,
-      --     cmd = { "gopls" },
-      --     filetypes = { "go", "gomod", "gowork", "gotmpl" },
-      --     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
-      --     settings = {
-      --       gopls = {
-      --         completeUnimported = true,
-      --         usePlaceholders = true,
-      --         analyses = {
-      --           unusedparams = true,
-      --         },
-      --       },
-      --     },
-      --   })
-      -- end,
     })
   end,
 }
