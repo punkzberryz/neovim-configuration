@@ -6,3 +6,4 @@
 - uzip - for stylua
 - fzf - for telescope
 - html - > npm i -g vscode-langservers-extracted
+- rg or ripgrep
